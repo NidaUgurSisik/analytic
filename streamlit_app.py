@@ -54,6 +54,9 @@ with c2:
     count = shows['Job Title'].value_counts()
     st.bar_chart(count[:15])
 
+    count = shows['Keywords'].value_counts()
+    st.bar_chart(count[:10])
+
     longitude = []
     latitude = []
 
