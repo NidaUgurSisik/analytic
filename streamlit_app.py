@@ -57,7 +57,7 @@ with c2:
     countkey = shows['Keywords'].value_counts()
     st.bar_chart(countkey[:10])
 
-    countcountry= shows['Country'].value_counts()
+    countcountry= shows['Country/Region'].value_counts()
     st.bar_chart(countcountry[:15])
 
     longitude = []
