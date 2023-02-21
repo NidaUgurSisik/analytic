@@ -50,7 +50,7 @@ with c2:
         st.stop()
 
     count = shows['Job Title'].value_counts()
-    st.bar_chart(shows,x = 'Job Title', y = count)
+    st.bar_chart(shows,x = 'Job Title', y = np.random)
 
     chart_data = pd.DataFrame(
     np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
