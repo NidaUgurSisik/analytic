@@ -48,6 +48,13 @@ with c2:
         )
 
         st.stop()
+
+    barchart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=["a", "b", "c"])
+
+    st.bar_chart(barchart_data)
+
     chart_data = pd.DataFrame(
     np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
     columns=['lat', 'lon'])
