@@ -3,6 +3,10 @@ import requests
 import pandas as pd
 import numpy as np
 from streamlit_tags import st_tags  # to add labels on the fly!
+import streamlit as st
+import pandas as pd
+import numpy as np
+import pydeck as pdk
 
 
 ############ 2. SETTING UP THE PAGE LAYOUT AND TITLE ############
@@ -10,7 +14,7 @@ from streamlit_tags import st_tags  # to add labels on the fly!
 # `st.set_page_config` is used to display the default layout width, the title of the app, and the emoticon in the browser tab.
 
 st.set_page_config(
-    layout="centered", page_title="Zero-Shot Text Classifier", page_icon="❄️"
+    layout="centered", page_title="Analytic", page_icon="❄️"
 )
 
 ############ CREATE THE LOGO AND HEADING ############
@@ -44,6 +48,40 @@ with c2:
         )
 
         st.stop()
+   
+
+    chart_data = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+    st.pydeck_chart(pdk.Deck(
+        map_style=None,
+        initial_view_state=pdk.ViewState(
+            latitude=37.76,
+            longitude=-122.4,
+            zoom=11,
+            pitch=50,
+        ),
+        layers=[
+            pdk.Layer(
+            'HexagonLayer',
+            data=chart_data,
+            get_position='[lon, lat]',
+            radius=200,
+            elevation_scale=4,
+            elevation_range=[0, 1000],
+            pickable=True,
+            extruded=True,
+            ),
+            pdk.Layer(
+                'ScatterplotLayer',
+                data=chart_data,
+                get_position='[lon, lat]',
+                get_color='[200, 30, 0, 160]',
+                get_radius=200,
+            ),
+        ],
+    ))
 
 # We need to set up session state via st.session_state so that app interactions don't reset the app.
 
