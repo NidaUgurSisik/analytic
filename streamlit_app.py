@@ -51,11 +51,14 @@ with c2:
 
         st.stop()
 
-    count = shows['Job Title'].value_counts()
-    st.bar_chart(count[:15])
+    countjob = shows['Job Title'].value_counts()
+    st.bar_chart(countjob[:15])
 
-    count = shows['Keywords'].value_counts()
-    st.bar_chart(count[:10])
+    countkey = shows['Keywords'].value_counts()
+    st.bar_chart(countkey[:10])
+
+    countcountry= shows['Country'].value_counts()
+    st.bar_chart(countcountry[:15])
 
     longitude = []
     latitude = []
