@@ -7,6 +7,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pydeck as pdk
+from geopy.exc import GeocoderTimedOut
+from geopy.geocoders import Nominatim
 
 
 ############ 2. SETTING UP THE PAGE LAYOUT AND TITLE ############
@@ -52,9 +54,64 @@ with c2:
     count = shows['Job Title'].value_counts()
     st.bar_chart(count)
 
-    chart_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
+    longitude = []
+    latitude = []
+
+    data = {'Count': shows['City'].value_counts()}
+    df = pd.DataFrame(data)
+    # function to find the coordinate
+    # of a given city
+
+    # declare an empty list to store
+    # latitude and longitude of values
+    # of city column
+    longitude = []
+    latitude = []
+
+    # function to find the coordinate
+    # of a given city
+    def findGeocode(city):
+        
+        # try and catch is used to overcome
+        # the exception thrown by geolocator
+        # using geocodertimedout
+        try:
+            
+            # Specify the user_agent as your
+            # app name it should not be none
+            geolocator = Nominatim(user_agent="your_app_name")
+            
+            return geolocator.geocode(city)
+        
+        except GeocoderTimedOut:
+            
+            return findGeocode(city)	
+
+    # each value from city column
+    # will be fetched and sent to
+    # function find_geocode
+    for i in (df.index):
+        
+        if findGeocode(i) != None:
+            
+            loc = findGeocode(i)
+            
+            # coordinates returned from
+            # function is stored into
+            # two separate list
+            latitude.append(loc.latitude)
+            longitude.append(loc.longitude)
+        
+        # if coordinate for a city not
+        # found, insert "NaN" indicating
+        # missing value
+        else:
+            latitude.append(np.nan)
+            longitude.append(np.nan)
+
+    # now add this column to dataframe
+    df["Longitude"] = longitude
+    df["Latitude"] = latitude
 
     st.pydeck_chart(pdk.Deck(
         map_style=None,
@@ -67,8 +124,8 @@ with c2:
         layers=[
             pdk.Layer(
             'HexagonLayer',
-            data=chart_data,
-            get_position='[lon, lat]',
+            data=df,
+            get_position='[Longitude, Latitude]',
             radius=200,
             elevation_scale=4,
             elevation_range=[0, 1000],
@@ -77,8 +134,8 @@ with c2:
             ),
             pdk.Layer(
                 'ScatterplotLayer',
-                data=chart_data,
-                get_position='[lon, lat]',
+                data=df,
+                get_position='[Longitude, Latitude]',
                 get_color='[200, 30, 0, 160]',
                 get_radius=200,
             ),
