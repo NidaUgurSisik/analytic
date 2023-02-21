@@ -24,12 +24,10 @@ st.set_page_config(
 # We create a set of columns to display the logo and the heading next to each other.
 
 
-c1, c2, c3 = st.columns([1, 2, 2])
+c1, c2, c3 = st.columns([2, 4, 4])
 
 # The snowflake logo will be displayed in the first column, on the left.
-
-with c2:
-    
+with c1:
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -50,7 +48,8 @@ with c2:
         )
 
         st.stop()
-
+with c2:
+    
     countjob = shows['Job Title'].value_counts()
     st.bar_chart(countjob[:15])
 
