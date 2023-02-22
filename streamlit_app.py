@@ -69,10 +69,10 @@ with c2:
         for i in output:
             new= {'key': i, 'value': output.count(i)}
             keywords = keywords.append(new, ignore_index = True)
-        keywords = keywords.sort_values(by=['value'],ascending=False)
+        '''keywords = keywords.sort_values(by=['value'],ascending=False)
         keywords = keywords.drop_duplicates(subset=['key'])
-        keywords = keywords[keywords.key != 'nan']
-        countkey= keywords
+        keywords = keywords[keywords.key != 'nan']'''
+        countkey= keywords.value_counts()
         st.bar_chart(countkey[:10])
 
     with c22:
