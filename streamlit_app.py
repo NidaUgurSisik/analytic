@@ -9,21 +9,7 @@ import numpy as np
 import pydeck as pdk
 from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Nominatim
-
-
-c5, c6 = st.columns([0.25,10])
-
-
-with c6:
-    c31, c32 = st.columns([12, 2])
-    with c31:
-        st.caption("")
-        st.title("Hubspot Analytics")
-    with c32:
-        st.image(
-            "images/logo.png",
-            width=200,
-        )
+    
 
 ############ 2. SETTING UP THE PAGE LAYOUT AND TITLE ############
 
@@ -43,6 +29,15 @@ c1, c2 = st.columns([0.25,10])
 # The snowflake logo will be displayed in the first column, on the left.
 
 with c2:
+    c31, c32 = st.columns([12, 2])
+    with c31:
+        st.caption("")
+        st.title("Hubspot Analytics")
+    with c32:
+        st.image(
+            "images/logo.png",
+            width=200,
+        )
     
     uploaded_file = st.file_uploader(
         "",
