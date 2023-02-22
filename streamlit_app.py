@@ -69,11 +69,11 @@ with c2:
         for i in output:
             new= {'key': i, 'value': output.count(i)}
             keywords = keywords.append(new, ignore_index = True)
-        '''keywords = keywords.sort_values(by=['value'],ascending=False)
+        keywords = keywords.sort_values(by=['value'],ascending=False)
         keywords = keywords.drop_duplicates(subset=['key'])
-        keywords = keywords[keywords.key != 'nan']'''
-        countkey= keywords.value_counts()
-        st.bar_chart(countkey[:10])
+        keywords = keywords[keywords.key != 'nan']
+        
+        st.bar_chart(x = keywords['value'], y = keywords['value'])
 
     with c22:
         countcountry= shows['Country/Region'].value_counts()
