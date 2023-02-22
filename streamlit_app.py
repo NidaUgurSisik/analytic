@@ -64,65 +64,65 @@ with c2:
         countcountry= shows['Country/Region'].value_counts()
         st.bar_chart(countcountry[:15])
 
-    longitude = []
-    latitude = []
+        longitude = []
+        latitude = []
 
-    data = {'City': shows['City'].unique()}
-    df = pd.DataFrame(data)
-    coord = pd.DataFrame(columns=['longitude', 'latitude'])
-    # function to find the coordinate
-    # of a given city
+        data = {'City': shows['City'].unique()}
+        df = pd.DataFrame(data)
+        coord = pd.DataFrame(columns=['longitude', 'latitude'])
+        # function to find the coordinate
+        # of a given city
 
-    # declare an empty list to store
-    # latitude and longitude of values
-    # of city column
-    longitude = []
-    latitude = []
+        # declare an empty list to store
+        # latitude and longitude of values
+        # of city column
+        longitude = []
+        latitude = []
 
-    # function to find the coordinate
-    # of a given city
-    def findGeocode(city):
-        
-        # try and catch is used to overcome
-        # the exception thrown by geolocator
-        # using geocodertimedout
-        try:
+        # function to find the coordinate
+        # of a given city
+        def findGeocode(city):
             
-            # Specify the user_agent as your
-            # app name it should not be none
-            geolocator = Nominatim(user_agent="your_app_name")
+            # try and catch is used to overcome
+            # the exception thrown by geolocator
+            # using geocodertimedout
+            try:
+                
+                # Specify the user_agent as your
+                # app name it should not be none
+                geolocator = Nominatim(user_agent="your_app_name")
+                
+                return geolocator.geocode(city)
             
-            return geolocator.geocode(city)
-        
-        except GeocoderTimedOut:
-            
-            return findGeocode(city)	
+            except GeocoderTimedOut:
+                
+                return findGeocode(city)	
 
-    # each value from city column
-    # will be fetched and sent to
-    # function find_geocode
-    for i in (df['City']):
-        print(i)
-        if findGeocode(i) != None:
+        # each value from city column
+        # will be fetched and sent to
+        # function find_geocode
+        for i in (df['City']):
+            print(i)
+            if findGeocode(i) != None:
+                
+                loc = findGeocode(i)
+                
+                # coordinates returned from
+                # function is stored into
+                # two separate list
+                #latitude.append(loc.latitude)
+                #longitude.append(loc.longitude)
+                new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
+                coord = coord.append(new_row, ignore_index = True)
             
-            loc = findGeocode(i)
-            
-            # coordinates returned from
-            # function is stored into
-            # two separate list
-            #latitude.append(loc.latitude)
-            #longitude.append(loc.longitude)
-            new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
-            coord = coord.append(new_row, ignore_index = True)
-        
-        # if coordinate for a city not
-        # found, insert "NaN" indicating
-        # missing value
-        else:
-            latitude.append(np.nan)
-            longitude.append(np.nan)
+            # if coordinate for a city not
+            # found, insert "NaN" indicating
+            # missing value
+            else:
+                latitude.append(np.nan)
+                longitude.append(np.nan)
 
-    st.map(coord)
+        st.map(coord)
    
 
 # We need to set up session state via st.session_state so that app interactions don't reset the app.
