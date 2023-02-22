@@ -25,7 +25,7 @@ def _max_width_():
     )
 
 
-c5, c6 = st.columns([6, 1])
+c5 = st.columns([6, 1])
 
 
 with c5:
