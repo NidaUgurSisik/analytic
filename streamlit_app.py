@@ -64,89 +64,91 @@ with c2:
     with c21:
         countjob = shows['Job Title'].value_counts()
         st.bar_chart(countjob[:15])
-
-        list = []
-        output = []
-        keywords = pd.DataFrame(columns=['key', 'value'])
-        for i in range(len(shows)):
-            list.append(str(shows.loc[i]['Keywords']).split(','))
-
-        for element in list:
-            for i in element:
-                output.append(i)
-
-        for i in output:
-            new= {'key': i, 'value': output.count(i)}
-            keywords = keywords.append(new, ignore_index = True)
-        keywords = keywords.sort_values(by=['value'],ascending=False)
-        keywords = keywords.drop_duplicates(subset=['key'])
-        keywords = keywords[keywords.key != 'nan']
-        
-        st.bar_chart(data = keywords, x = 'key', y = 'value')
-
     with c22:
         countcountry= shows['Country/Region'].value_counts()
         st.bar_chart(countcountry[:15])
 
-        longitude = []
-        latitude = []
+        
 
-        data = {'City': shows['City'].unique()}
-        df = pd.DataFrame(data)
-        coord = pd.DataFrame(columns=['longitude', 'latitude'])
-        # function to find the coordinate
-        # of a given city
+        
+    list = []
+    output = []
+    keywords = pd.DataFrame(columns=['key', 'value'])
+    for i in range(len(shows)):
+        list.append(str(shows.loc[i]['Keywords']).split(','))
 
-        # declare an empty list to store
-        # latitude and longitude of values
-        # of city column
-        longitude = []
-        latitude = []
+    for element in list:
+        for i in element:
+            output.append(i)
 
-        # function to find the coordinate
-        # of a given city
-        def findGeocode(city):
+    for i in output:
+        new= {'key': i, 'value': output.count(i)}
+        keywords = keywords.append(new, ignore_index = True)
+    keywords = keywords.sort_values(by=['value'],ascending=False)
+    keywords = keywords.drop_duplicates(subset=['key'])
+    keywords = keywords[keywords.key != 'nan']
+    
+    st.bar_chart(data = keywords, x = 'key', y = 'value')
+
+    longitude = []
+    latitude = []
+
+    data = {'City': shows['City'].unique()}
+    df = pd.DataFrame(data)
+    coord = pd.DataFrame(columns=['longitude', 'latitude'])
+    # function to find the coordinate
+    # of a given city
+
+    # declare an empty list to store
+    # latitude and longitude of values
+    # of city column
+    longitude = []
+    latitude = []
+
+    # function to find the coordinate
+    # of a given city
+    def findGeocode(city):
+        
+        # try and catch is used to overcome
+        # the exception thrown by geolocator
+        # using geocodertimedout
+        try:
             
-            # try and catch is used to overcome
-            # the exception thrown by geolocator
-            # using geocodertimedout
-            try:
-                
-                # Specify the user_agent as your
-                # app name it should not be none
-                geolocator = Nominatim(user_agent="your_app_name")
-                
-                return geolocator.geocode(city)
+            # Specify the user_agent as your
+            # app name it should not be none
+            geolocator = Nominatim(user_agent="your_app_name")
             
-            except GeocoderTimedOut:
-                
-                return findGeocode(city)	
-
-        # each value from city column
-        # will be fetched and sent to
-        # function find_geocode
-        for i in (df['City']):
-            print(i)
-            if findGeocode(i) != None:
-                
-                loc = findGeocode(i)
-                
-                # coordinates returned from
-                # function is stored into
-                # two separate list
-                #latitude.append(loc.latitude)
-                #longitude.append(loc.longitude)
-                new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
-                coord = coord.append(new_row, ignore_index = True)
+            return geolocator.geocode(city)
+        
+        except GeocoderTimedOut:
             
-            # if coordinate for a city not
-            # found, insert "NaN" indicating
-            # missing value
-            else:
-                latitude.append(np.nan)
-                longitude.append(np.nan)
+            return findGeocode(city)	
 
-        st.map(coord)
+    # each value from city column
+    # will be fetched and sent to
+    # function find_geocode
+    for i in (df['City']):
+        print(i)
+        if findGeocode(i) != None:
+            
+            loc = findGeocode(i)
+            
+            # coordinates returned from
+            # function is stored into
+            # two separate list
+            #latitude.append(loc.latitude)
+            #longitude.append(loc.longitude)
+            new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
+            coord = coord.append(new_row, ignore_index = True)
+        
+        # if coordinate for a city not
+        # found, insert "NaN" indicating
+        # missing value
+        else:
+            latitude.append(np.nan)
+            longitude.append(np.nan)
+
+    st.map(coord)
    
 
 # We need to set up session state via st.session_state so that app interactions don't reset the app.
