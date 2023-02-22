@@ -56,8 +56,23 @@ with c2:
         countjob = shows['Job Title'].value_counts()
         st.bar_chart(countjob[:15])
 
-    
-        countkey= shows['Keywords'].value_counts()
+        list = []
+        output = []
+        keywords = pd.DataFrame(columns=['key', 'value'])
+        for i in range(len(shows)):
+            list.append(str(shows.loc[i]['Keywords']).split(','))
+
+        for element in list:
+            for i in element:
+                output.append(i)
+
+        for i in output:
+            new= {'key': i, 'value': output.count(i)}
+            keywords = keywords.append(new, ignore_index = True)
+        keywords = keywords.sort_values(by=['value'],ascending=False)
+        keywords = keywords.drop_duplicates(subset=['key'])
+        keywords = keywords[keywords.key != 'nan']
+        countkey= keywords
         st.bar_chart(countkey[:10])
 
     with c22:
