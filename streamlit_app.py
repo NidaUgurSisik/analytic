@@ -73,7 +73,7 @@ with c2:
         keywords = keywords.drop_duplicates(subset=['key'])
         keywords = keywords[keywords.key != 'nan']
         
-        st.bar_chart(data = keywords, x = keywords['key'], y = keywords['value'])
+        st.bar_chart(data = keywords, x = 'key', y = 'value')
 
     with c22:
         countcountry= shows['Country/Region'].value_counts()
