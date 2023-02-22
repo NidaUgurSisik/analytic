@@ -11,24 +11,10 @@ from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Nominatim
 
 
-def _max_width_():
-    max_width_str = f"max-width: 1800px;"
-    st.markdown(
-        f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>    
-    """,
-        unsafe_allow_html=True,
-    )
+c5, c6 = st.columns([0.25,10])
 
 
-c5 = st.columns([6, 1])
-
-
-with c5:
+with c6:
     c31, c32 = st.columns([12, 2])
     with c31:
         st.caption("")
