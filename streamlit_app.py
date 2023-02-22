@@ -69,7 +69,7 @@ with c2:
 
     data = {'City': shows['City'].unique()}
     df = pd.DataFrame(data)
-    coord = pd.DataFrame()
+    coord = pd.DataFrame(columns=['longitude', 'latitude'])
     # function to find the coordinate
     # of a given city
 
@@ -101,8 +101,8 @@ with c2:
     # each value from city column
     # will be fetched and sent to
     # function find_geocode
-    for i in (df):
-        
+    for i in (df['City']):
+        print(i)
         if findGeocode(i) != None:
             
             loc = findGeocode(i)
@@ -110,8 +110,10 @@ with c2:
             # coordinates returned from
             # function is stored into
             # two separate list
-            latitude.append(loc.latitude)
-            longitude.append(loc.longitude)
+            #latitude.append(loc.latitude)
+            #longitude.append(loc.longitude)
+            new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
+            coord = coord.append(new_row, ignore_index = True)
         
         # if coordinate for a city not
         # found, insert "NaN" indicating
@@ -119,10 +121,6 @@ with c2:
         else:
             latitude.append(np.nan)
             longitude.append(np.nan)
-
-    # now add this column to dataframe
-    coord["Longitude"] = longitude
-    coord["Latitude"] = latitude
 
     st.map(coord)
    
