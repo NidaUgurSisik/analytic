@@ -51,7 +51,7 @@ with c2:
 
         st.stop()
 
-    c21, c22 = st.columns([0.25,10])
+    c21, c22 = st.columns([4.5,4.5])
     with c21:
         countjob = shows['Job Title'].value_counts()
         st.bar_chart(countjob[:15])
