@@ -123,34 +123,7 @@ with c2:
     df["Longitude"] = longitude
     df["Latitude"] = latitude
 
-    st.pydeck_chart(pdk.Deck(
-        map_style=None,
-        initial_view_state=pdk.ViewState(
-            latitude=37.76,
-            longitude=-122.4,
-            zoom=11,
-            pitch=50,
-        ),
-        layers=[
-            pdk.Layer(
-            'HexagonLayer',
-            data=df,
-            get_position='[Longitude, Latitude]',
-            radius=200,
-            elevation_scale=4,
-            elevation_range=[0, 1000],
-            pickable=True,
-            extruded=True,
-            ),
-            pdk.Layer(
-                'ScatterplotLayer',
-                data=df,
-                get_position='[Longitude, Latitude]',
-                get_color='[200, 30, 0, 160]',
-                get_radius=200,
-            ),
-        ],
-    ))
+    st.map(df)
    
 
 # We need to set up session state via st.session_state so that app interactions don't reset the app.
