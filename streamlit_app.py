@@ -67,8 +67,9 @@ with c2:
     longitude = []
     latitude = []
 
-    data = {'Count': shows['City'].value_counts()}
+    data = {'City': shows['City'].unique()}
     df = pd.DataFrame(data)
+    coord = pd.DataFrame()
     # function to find the coordinate
     # of a given city
 
@@ -100,7 +101,7 @@ with c2:
     # each value from city column
     # will be fetched and sent to
     # function find_geocode
-    for i in (df.index):
+    for i in (df):
         
         if findGeocode(i) != None:
             
@@ -120,10 +121,10 @@ with c2:
             longitude.append(np.nan)
 
     # now add this column to dataframe
-    df["Longitude"] = longitude
-    df["Latitude"] = latitude
+    coord["Longitude"] = longitude
+    coord["Latitude"] = latitude
 
-    st.map(df)
+    st.map(coord)
    
 
 # We need to set up session state via st.session_state so that app interactions don't reset the app.
