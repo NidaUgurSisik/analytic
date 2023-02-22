@@ -24,7 +24,7 @@ st.set_page_config(
 # We create a set of columns to display the logo and the heading next to each other.
 
 
-c1, c2 = st.columns([10,2])
+c1, c2 = st.columns([2,10])
 
 # The snowflake logo will be displayed in the first column, on the left.
 
