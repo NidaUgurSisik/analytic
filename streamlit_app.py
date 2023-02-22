@@ -29,7 +29,7 @@ c1, c2 = st.columns([0.25,10])
 # The snowflake logo will be displayed in the first column, on the left.
 
 with c2:
-    c31, c32 = st.columns([12, 2])
+    c31, c32 = st.columns([10, 2])
     with c31:
         st.caption("")
         st.title("Hubspot Analytics")
