@@ -11,6 +11,34 @@ from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Nominatim
 
 
+def _max_width_():
+    max_width_str = f"max-width: 1800px;"
+    st.markdown(
+        f"""
+    <style>
+    .reportview-container .main .block-container{{
+        {max_width_str}
+    }}
+    </style>    
+    """,
+        unsafe_allow_html=True,
+    )
+
+
+c5, c6 = st.columns([6, 1])
+
+
+with c5:
+    c31, c32 = st.columns([12, 2])
+    with c31:
+        st.caption("")
+        st.title("Hubspot Analytics")
+    with c32:
+        st.image(
+            "images/logo.png",
+            width=200,
+        )
+
 ############ 2. SETTING UP THE PAGE LAYOUT AND TITLE ############
 
 # `st.set_page_config` is used to display the default layout width, the title of the app, and the emoticon in the browser tab.
