@@ -24,7 +24,7 @@ st.set_page_config(
 # We create a set of columns to display the logo and the heading next to each other.
 
 
-c1, c2 = st.columns([-5,10])
+c1, c2 = st.columns([0.25,10])
 
 # The snowflake logo will be displayed in the first column, on the left.
 
@@ -51,14 +51,18 @@ with c2:
 
         st.stop()
 
-    countjob = shows['Job Title'].value_counts()
-    st.bar_chart(countjob[:15])
+    c21, c22 = st.columns([0.25,10])
+    with c21:
+        countjob = shows['Job Title'].value_counts()
+        st.bar_chart(countjob[:15])
 
-    countkey = shows['Keywords'].value_counts()
-    st.bar_chart(countkey[:10])
+    
+        countkey= shows['Keywords'].value_counts()
+        st.bar_chart(countkey[:10])
 
-    countcountry= shows['Country/Region'].value_counts()
-    st.bar_chart(countcountry[:15])
+    with c22:
+        countcountry= shows['Country/Region'].value_counts()
+        st.bar_chart(countcountry[:15])
 
     longitude = []
     latitude = []
