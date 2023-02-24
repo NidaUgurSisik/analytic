@@ -14,6 +14,13 @@ from geopy.geocoders import Nominatim
 ############ 2. SETTING UP THE PAGE LAYOUT AND TITLE ############
 
 # `st.set_page_config` is used to display the default layout width, the title of the app, and the emoticon in the browser tab.
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.set_page_config(
     layout="centered", page_title="Analytic", page_icon="❄️"
