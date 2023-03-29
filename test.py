@@ -6,5 +6,6 @@ geolocator = Nominatim(user_agent="MyApp")
 
 location = geolocator.geocode("Arnhem-Nijmegen Metropolitan Area")
 
-print("The latitude of the location is: ", location.latitude)
-print("The longitude of the location is: ", location.longitude)
+print(location)
+#print("The latitude of the location is: ", location.latitude)
+#print("The longitude of the location is: ", location.longitude)
