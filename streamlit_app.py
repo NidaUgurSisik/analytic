@@ -118,8 +118,8 @@ with c2:
             # Specify the user_agent as your
             # app name it should not be none
             geolocator = Nominatim(user_agent="your_app_name")
-            
-            return geolocator.geocode(city)
+            location = geolocator.geocode(city)
+            return location
         
         except GeocoderTimedOut:
             
