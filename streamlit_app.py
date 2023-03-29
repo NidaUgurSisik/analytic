@@ -130,7 +130,7 @@ with c2:
     # function find_geocode
     for i in (df['City']):
         if i != None:
-            st.write(i)
+            #st.write(i)
             loc = findGeocode(i)
             
             # coordinates returned from
