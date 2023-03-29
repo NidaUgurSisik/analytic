@@ -138,7 +138,7 @@ with c2:
             # two separate list
             #latitude.append(loc.latitude)
             #longitude.append(loc.longitude)
-            if loc.longitude != 'NoneType' & loc.latitude!= 'NoneType':
+            if loc.longitude != 'NoneType' and loc.latitude != 'NoneType':
                 new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
                 coord = coord.append(new_row, ignore_index = True)
         
