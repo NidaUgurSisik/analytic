@@ -122,8 +122,7 @@ with c2:
             return location
         
         except GeocoderTimedOut:
-            
-            return findGeocode(city)	
+            return
 
     # each value from city column
     # will be fetched and sent to
