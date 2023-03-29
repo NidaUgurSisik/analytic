@@ -129,8 +129,8 @@ with c2:
     # will be fetched and sent to
     # function find_geocode
     for i in (df['City']):
-        if findGeocode(i) != None:
-            
+        if i != None:
+            st.write(i)
             loc = findGeocode(i)
             
             # coordinates returned from
