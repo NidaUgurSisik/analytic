@@ -2,3 +2,4 @@ streamlit
 streamlit-tags
 pydeck
 geopy
+matplotlib
