@@ -70,8 +70,8 @@ with c2:
         countcountry= shows['Country/Region'].value_counts()
         st.bar_chart(countcountry[:15])
 
-    labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
-    sizes = [15, 30, 45, 10]
+    labels = shows['Industry'].value_counts().index
+    sizes = shows['Industry'].value_counts()
     explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
 
     fig1, ax1 = plt.subplots()
