@@ -122,7 +122,8 @@ with c2:
             return location
         
         except GeocoderTimedOut:
-            return
+            
+            return findGeocode(city)	
 
     # each value from city column
     # will be fetched and sent to
@@ -137,8 +138,9 @@ with c2:
             # two separate list
             #latitude.append(loc.latitude)
             #longitude.append(loc.longitude)
-            new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
-            coord = coord.append(new_row, ignore_index = True)
+            if loc.longitude != 'NoneType' & loc.latitude!= 'NoneType':
+                new_row = {'longitude': loc.longitude, 'latitude': loc.latitude}
+                coord = coord.append(new_row, ignore_index = True)
         
         # if coordinate for a city not
         # found, insert "NaN" indicating
